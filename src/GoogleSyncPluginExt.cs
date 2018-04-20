@@ -185,25 +185,25 @@ namespace GoogleSyncPlugin
 
 			m_tsmiSync = new ToolStripMenuItem();
 			m_tsmiSync.Name = SyncCommand.SYNC.ToString();
-			m_tsmiSync.Text = "Sync with Google Drive";
+			m_tsmiSync.Text = "同步";
 			m_tsmiSync.Click += OnSyncWithGoogle;
 			m_tsmiPopup.DropDownItems.Add(m_tsmiSync);
 
 			m_tsmiUpload = new ToolStripMenuItem();
 			m_tsmiUpload.Name = SyncCommand.UPLOAD.ToString();
-			m_tsmiUpload.Text = "Upload to Google Drive";
+			m_tsmiUpload.Text = "上传";
 			m_tsmiUpload.Click += OnSyncWithGoogle;
 			m_tsmiPopup.DropDownItems.Add(m_tsmiUpload);
 
 			m_tsmiDownload = new ToolStripMenuItem();
 			m_tsmiDownload.Name = SyncCommand.DOWNLOAD.ToString();
-			m_tsmiDownload.Text = "Download from Google Drive";
+			m_tsmiDownload.Text = "下载";
 			m_tsmiDownload.Click += OnSyncWithGoogle;
 			m_tsmiPopup.DropDownItems.Add(m_tsmiDownload);
 
 			m_tsmiConfigure = new ToolStripMenuItem();
 			m_tsmiConfigure.Name = "CONFIG";
-			m_tsmiConfigure.Text = "Configuration...";
+			m_tsmiConfigure.Text = "配置...";
 			m_tsmiConfigure.Click += OnConfigure;
 			m_tsmiPopup.DropDownItems.Add(m_tsmiConfigure);
 
@@ -244,9 +244,9 @@ namespace GoogleSyncPlugin
 			if (e.Success && AutoSyncMode.SAVE == (m_autoSync & AutoSyncMode.SAVE))
 			{
 				if (Keys.Shift == (Control.ModifierKeys & Keys.Shift))
-					ShowMessage("Shift Key pressed. Auto Sync ignored.", true);
+					ShowMessage("按下 Shift 键，跳过自动同步。", true);
 				else if (!LoadConfiguration())
-					ShowMessage("No valid configuration found. Auto Sync ignored.", true);
+					ShowMessage("找不到有效的配置，跳过自动同步。", true);
 				else
 					syncWithGoogle(SyncCommand.SYNC, true);
 			}
@@ -260,9 +260,9 @@ namespace GoogleSyncPlugin
 			if (AutoSyncMode.OPEN == (m_autoSync & AutoSyncMode.OPEN))
 			{
 				if (Keys.Shift == (Control.ModifierKeys & Keys.Shift))
-					ShowMessage("Shift Key pressed. Auto Sync ignored.", true);
+					ShowMessage("按下 Shift 键，跳过自动同步。", true);
 				else if (!LoadConfiguration())
-					ShowMessage("No valid configuration found. Auto Sync ignored.", true);
+					ShowMessage("找不到有效的配置，跳过自动同步。", true);
 				else
 					syncWithGoogle(SyncCommand.SYNC, true);
 			}
@@ -285,7 +285,7 @@ namespace GoogleSyncPlugin
 		{
 			if (!m_host.Database.IsOpen)
 			{
-				ShowMessage("You first need to open a database.");
+				ShowMessage("你需要先打开一个数据库");
 				return;
 			}
 
@@ -300,17 +300,17 @@ namespace GoogleSyncPlugin
 		{
 			if (!m_host.Database.IsOpen)
 			{
-				ShowMessage("You first need to open a database.");
+				ShowMessage("你需要先打开一个数据库");
 				return;
 			}
 			else if (!m_host.Database.IOConnectionInfo.IsLocalFile())
 			{
-				ShowMessage("Only databases stored locally or on a network share are supported.\n" +
-					"Save your database locally or on a network share and try again.");
+				ShowMessage("只支持本地数据库或网络共享数据库。\n" +
+					"将您的数据库保存到本地或网络共享中，再重试。");
 				return;
 			}
 
-			string status = "Please wait ...";
+			string status = "请稍后 ...";
 			try
 			{
 				m_host.MainWindow.FileSaved -= OnFileSaved; // disable to not trigger when saving ourselves
@@ -320,7 +320,7 @@ namespace GoogleSyncPlugin
 
 				// abort when user cancelled or didn't provide config
 				if (!GetConfiguration())
-					throw new PlgxException(Defs.ProductName() + " aborted!");
+					throw new PlgxException(Defs.ProductName() + " 中止！");
 
 				// Get Access Token / Authorization
 				// Invoke async method GetAuthorization from thread pool to have no context to marshal back to
@@ -332,8 +332,8 @@ namespace GoogleSyncPlugin
 				DriveService service = new DriveService(new BaseClientService.Initializer()
 				{
 					HttpClientInitializer = myCredential,
-					ApplicationName = Defs.ProductName()
-				});
+					ApplicationName = "Google Sync Plugin"
+                });
 
 				string filePath = m_host.Database.IOConnectionInfo.Path;
 				string contentType = "application/x-keepass2";
@@ -343,13 +343,13 @@ namespace GoogleSyncPlugin
 				{
 					if (syncCommand == SyncCommand.DOWNLOAD)
 					{
-						status = "File name not found on Google Drive. Please upload or sync with Google Drive first.";
+						status = "再 Google Drive 上找不到文件，请先上传或与 Google Drive 同步。";
 					}
 					else // upload
 					{
 						if (!autoSync)
 							m_host.Database.Save(new NullStatusLogger());
-						status = uploadFile(service, "KeePass Password Safe Database", string.Empty, contentType, filePath);
+						status = uploadFile(service, "KeePass 密码安全数据库", string.Empty, contentType, filePath);
 					}
 				}
 				else
@@ -373,7 +373,7 @@ namespace GoogleSyncPlugin
 									updateFile(service, file, filePath, contentType));
 						}
 						else
-							status = "File could not be downloaded.";
+							status = "无法下载文件。";
 					}
 				}
 			}
@@ -383,25 +383,25 @@ namespace GoogleSyncPlugin
 				switch (ex.Error.Error)
 				{
 					case "access_denied":
-						msg = "Access authorization request denied.";
+						msg = "访问授权被拒绝";
 						break;
 					case "invalid_request":
-						msg = "Either Client ID or Client Secret is missing.";
+						msg = "客户端ID或密匙丢失";
 						break;
 					case "invalid_client":
-						msg = "Either Client ID or Client Secret is invalid.";
+						msg = "客户端ID或密匙无效";
 						break;
 					case "invalid_grant":
-						msg = "The provided authorization grant (e.g., authorization code, resource owner credentials) or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.";
+						msg = "提供的密匙无效或过期";
 						break;
 					case "unauthorized_client":
-						msg = "The authenticated client is not authorized to use this authorization grant type.";
+						msg = "未经授权的客户端";
 						break;
 					case "unsupported_grant_type":
-						msg = "The authorization grant type is not supported by the authorization server.";
+						msg = "授权服务器不支持该授权类型";
 						break;
 					case "invalid_scope":
-						msg = "The requested scope is invalid, unknown, malformed, or exceeds the scope granted by the resource owner.";
+						msg = "请求的范围无效";
 						break;
 					default:
 						msg = ex.Message;
@@ -467,7 +467,7 @@ namespace GoogleSyncPlugin
 			else if (files.Files.Count == 1)
 				return files.Files[0];
 
-			throw new PlgxException("More than one file name '" + filename + "' found on Google Drive. Please make sure the file name is unique across all folders.");
+			throw new PlgxException("在 Google Drive 发现多个重名文件'" + filename + "'\n\n请确保文件名在所有文件夹中都是唯一的。");
 		}
 
 		/// <summary>
@@ -483,13 +483,13 @@ namespace GoogleSyncPlugin
 			System.IO.File.Delete(downloadFilePath);
 
 			if (!success.HasValue)
-				throw new PlgxException("Synchronization failed.\n\nYou do not have permission to import. Adjust your KeePass configuration.");
+				throw new PlgxException("同步失败。\n\n没有导入权限，请调整 KeePass 配置");
 			if (!(bool)success)
-				throw new PlgxException("Synchronization failed.\n\n" +
-					"If the error was that master keys (passwords) do not match, use Upload / Download commands instead of Sync " +
-					"or change the local master key to match that of the remote database.");
+				throw new PlgxException("同步失败。\n\n" +
+                    "如果主密匙（密码）不正确，请使用 上传/下载 命令，而不是同步。\n\n" +
+                    "或更改本地主密匙与远程数据库的密钥一致。");
 
-			return "Local file synchronized.";
+			return "本地文件同步。";
 		}
 
 		/// <summary>
@@ -513,7 +513,7 @@ namespace GoogleSyncPlugin
 				throw progress.Exception;
 			}
 
-			return string.Format("File on Google Drive updated. Name: {0}, ID: {1}", file.Name, file.Id);
+			return string.Format("Google Drive 文件已更新，文件名：{0}，ID：{1}", file.Name, file.Id);
 		}
 
 		/// <summary>
@@ -546,7 +546,7 @@ namespace GoogleSyncPlugin
 			}
 
 			File file = request.ResponseBody;
-			return string.Format("File uploaded to Google Drive. Name: {0}, ID: {1}", file.Name, file.Id);
+			return string.Format("Google Drive 文件已更新，文件名：{0}，ID：{1}", file.Name, file.Id);
 		}
 
 		/// <summary>
@@ -567,11 +567,11 @@ namespace GoogleSyncPlugin
 				System.IO.File.Move(currentFilePath, tempFilePath);
 				System.IO.File.Move(downloadFilePath, currentFilePath);
 				System.IO.File.Delete(tempFilePath);
-				status = "File downloaded replacing current database '" + System.IO.Path.GetFileName(currentFilePath) + "'";
+				status = "下载文件替换当前数据库 '" + System.IO.Path.GetFileName(currentFilePath) + "'";
 			}
 			catch (Exception)
 			{
-				status = "Replacing current database failed. File downloaded as '" + System.IO.Path.GetFileName(downloadFilePath) + "'";
+				status = "替换当前数据库失败，下载文件在 '" + System.IO.Path.GetFileName(downloadFilePath) + "'";
 			}
 
 			// try to open new (or old in case of error) db
@@ -753,7 +753,7 @@ namespace GoogleSyncPlugin
 
 			if (entry == null && !String.IsNullOrEmpty(strUuid))
 			{
-				ShowMessage("Password entry with UUID '" + strUuid + "' not found.");
+				ShowMessage("没有找到 UUID：'" + strUuid + "' 关联密码");
 				return false;
 			}
 

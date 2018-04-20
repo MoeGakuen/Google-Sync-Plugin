@@ -22,8 +22,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General assembly properties
-[assembly: AssemblyTitle("Google Sync Plugin")]
-[assembly: AssemblyDescription("Sync database with Google Drive")]
+[assembly: AssemblyTitle("Google Drive 同步")]
+[assembly: AssemblyDescription("与 Google Drive 同步数据库文件")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DesignsInnovate")]
 [assembly: AssemblyProduct("KeePass Plugin")]
@@ -38,5 +38,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("966575FC-0771-438d-B406-27C2E231F902")]
 
 // Assembly version information
-[assembly: AssemblyVersion("3.0.1.0")]
-[assembly: AssemblyFileVersion("3.0.1.0")]
+[assembly: AssemblyVersion("3.0.1.1")]
+[assembly: AssemblyFileVersion("3.0.1.1")]

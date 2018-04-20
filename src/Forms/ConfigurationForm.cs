@@ -70,10 +70,10 @@ namespace GoogleSyncPlugin
 
 		private void GoogleOAuthCredentialsForm_Load(object sender, EventArgs e)
 		{
-			lblTitle.Text = Defs.ProductName() + " Configuration";
+			lblTitle.Text = Defs.ProductName() + " 配置";
 			lblVersion.Text = Defs.VersionString();
 
-			cbAccount.Items.Add("Custom KeePass UUID");
+			cbAccount.Items.Add("自定义 KeePass UUID");
 			foreach (PwEntry entry in m_accounts)
 			{
 				cbAccount.Items.Add(entry.Strings.GetSafe(PwDefs.UserNameField).ReadString() + " - " + entry.Strings.GetSafe(PwDefs.TitleField).ReadString());
@@ -110,7 +110,7 @@ namespace GoogleSyncPlugin
 
 			if (String.IsNullOrEmpty(strUuid))
 			{
-				DialogResult dlgr = MessageBox.Show("Remove Google Account association from KeePass config?", Defs.ProductName(), MessageBoxButtons.YesNoCancel);
+				DialogResult dlgr = MessageBox.Show("从 KeePass 配置中删除 Google 账户关联？", Defs.ProductName(), MessageBoxButtons.YesNoCancel);
 				if (DialogResult.Yes != dlgr)
 					DialogResult = DialogResult.None;
 				return;
@@ -118,14 +118,14 @@ namespace GoogleSyncPlugin
 
 			if (!Regex.IsMatch(strUuid, "^[0-9A-F]{32}$"))
 			{
-				MessageBox.Show("The entered UUID is not valid.", Defs.ProductName());
+				MessageBox.Show("输入的 UUID 无效！", Defs.ProductName());
 				DialogResult = DialogResult.None;
 				return;
 			}
 
 			if (chkOAuth.Checked && (String.IsNullOrEmpty(txtClientId.Text.Trim()) || String.IsNullOrEmpty(txtClientSecret.Text.Trim())))
 			{
-				MessageBox.Show("Please enter a valid custom Google OAuth 2.0 Client ID and Client Secrect for " + Defs.ProductName() + " or use default values.", Defs.ProductName());
+				MessageBox.Show("请为 " + Defs.ProductName() + " 输入有效的 Google OAuth 2.0 客户端ID和客户端密匙，或使用默认设置", Defs.ProductName());
 				DialogResult = DialogResult.None;
 				return;
 			}

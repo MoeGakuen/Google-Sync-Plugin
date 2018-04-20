@@ -63,7 +63,7 @@
 			this.lnkGoogle.Size = new System.Drawing.Size(134, 13);
 			this.lnkGoogle.TabIndex = 17;
 			this.lnkGoogle.TabStop = true;
-			this.lnkGoogle.Text = "Google Developer Console";
+			this.lnkGoogle.Text = "Google 开发者控制台";
 			this.lnkGoogle.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkGoogle_LinkClicked);
 			// 
 			// lblTitle
@@ -74,7 +74,7 @@
 			this.lblTitle.Name = "lblTitle";
 			this.lblTitle.Size = new System.Drawing.Size(239, 16);
 			this.lblTitle.TabIndex = 0;
-			this.lblTitle.Text = "Google Sync Plugin Configuration";
+			this.lblTitle.Text = "Google Drive 同步设置";
 			// 
 			// txtClientSecret
 			// 
@@ -90,7 +90,7 @@
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(50, 13);
 			this.label2.TabIndex = 6;
-			this.label2.Text = "Client ID:";
+			this.label2.Text = "客户端 ID：";
 			// 
 			// label3
 			// 
@@ -99,7 +99,7 @@
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(70, 13);
 			this.label3.TabIndex = 8;
-			this.label3.Text = "Client Secret:";
+			this.label3.Text = "客户端密钥：";
 			// 
 			// btnOk
 			// 
@@ -108,7 +108,7 @@
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(75, 23);
 			this.btnOk.TabIndex = 13;
-			this.btnOk.Text = "&OK";
+			this.btnOk.Text = "&确定";
 			this.btnOk.UseVisualStyleBackColor = true;
 			this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
 			// 
@@ -119,7 +119,7 @@
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(87, 13);
 			this.label4.TabIndex = 2;
-			this.label4.Text = "Google Account:";
+			this.label4.Text = "Google 账户：";
 			// 
 			// btnCancel
 			// 
@@ -128,7 +128,7 @@
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 14;
-			this.btnCancel.Text = "&Cancel";
+			this.btnCancel.Text = "&取消";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
 			// label5
@@ -165,7 +165,7 @@
 			this.lnkHelp.Size = new System.Drawing.Size(29, 13);
 			this.lnkHelp.TabIndex = 16;
 			this.lnkHelp.TabStop = true;
-			this.lnkHelp.Text = "Help";
+			this.lnkHelp.Text = "帮助";
 			this.lnkHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkHelp_LinkClicked);
 			// 
 			// lblVersion
@@ -187,7 +187,7 @@
 			this.lnkHome.Size = new System.Drawing.Size(35, 13);
 			this.lnkHome.TabIndex = 15;
 			this.lnkHome.TabStop = true;
-			this.lnkHome.Text = "Home";
+			this.lnkHome.Text = "主页";
 			this.lnkHome.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkHome_LinkClicked);
 			// 
 			// label1
@@ -197,17 +197,17 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(59, 13);
 			this.label1.TabIndex = 10;
-			this.label1.Text = "Auto Sync:";
+			this.label1.Text = "自动同步：";
 			// 
 			// cbAutoSync
 			// 
 			this.cbAutoSync.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbAutoSync.FormattingEnabled = true;
 			this.cbAutoSync.Items.AddRange(new object[] {
-            "Disabled",
-            "Save",
-            "Open",
-            "Both"});
+            "禁用",
+            "保存",
+            "打开",
+            "所有"});
 			this.cbAutoSync.Location = new System.Drawing.Point(112, 154);
 			this.cbAutoSync.Name = "cbAutoSync";
 			this.cbAutoSync.Size = new System.Drawing.Size(110, 21);
@@ -220,7 +220,7 @@
 			this.chkOAuth.Name = "chkOAuth";
 			this.chkOAuth.Size = new System.Drawing.Size(167, 17);
 			this.chkOAuth.TabIndex = 12;
-			this.chkOAuth.Text = "Custom OAuth 2.0 Credentials";
+			this.chkOAuth.Text = "自定义 OAuth 2.0 凭证";
 			this.chkOAuth.UseVisualStyleBackColor = true;
 			this.chkOAuth.CheckedChanged += new System.EventHandler(this.chkOAuth_CheckedChanged);
 			// 
@@ -251,7 +251,7 @@
 			this.MaximizeBox = false;
 			this.Name = "ConfigurationForm";
 			this.ShowIcon = false;
-			this.Text = "Google Sync Plugin";
+			this.Text = "Google Drive 同步";
 			this.Load += new System.EventHandler(this.GoogleOAuthCredentialsForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();

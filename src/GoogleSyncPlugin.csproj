@@ -66,12 +66,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\KeePass\KeePass\KeePass.csproj">
-      <Project>{10938016-dee2-4a25-9a5a-8fd3444379ca}</Project>
-      <Name>KeePass</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
       <HintPath>packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
@@ -99,6 +93,9 @@
     <Reference Include="Google.Apis.PlatformServices, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>packages\Google.Apis.1.16.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="KeePass">
+      <HintPath>C:\Program Files (x86)\KeePass Password Safe 2\KeePass.exe</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>

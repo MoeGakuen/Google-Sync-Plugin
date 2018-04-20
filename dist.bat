@@ -1,9 +1,7 @@
 @echo off
 
-set keepassexe=src\bin\release\KeePass.exe
-set zipexe=c:\Progra~1\7-Zip\7z.exe
-
-rem END CONFIGURATION
+set keepassexe=.\lib\KeePass.exe
+set zipexe=.\lib\7z.exe
 
 if not exist %keepassexe% (
   echo keepass.exe not found: %keepassexe%
@@ -16,12 +14,9 @@ if not exist %zipexe% (
   exit /b 1
 )
 
-
 rd /s /q .\build
 
 md .\build\GoogleSyncPlugin
-
-copy %keepassexe% .\build\
 
 xcopy /s src\*.* .\build\GoogleSyncPlugin\
 
@@ -40,7 +35,7 @@ rd /s /q .\build\GoogleSyncPlugin\packages
 del /q .\build\GoogleSyncPlugin\*.user
 del /q .\build\GoogleSyncPlugin\*.suo
 
-.\build\KeePass.exe --plgx-create %~dp0build\GoogleSyncPlugin --plgx-prereq-kp:2.18 --plgx-prereq-net:4.5
+%keepassexe% --plgx-create %~dp0build\GoogleSyncPlugin --plgx-prereq-kp:2.18 --plgx-prereq-net:4.5
 
 del /q .\build\GoogleSyncPlugin.zip
 %zipexe% a .\build\GoogleSyncPlugin.zip .\build\GoogleSyncPlugin.plgx doc\*.*
